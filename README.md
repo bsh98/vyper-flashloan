@@ -4,11 +4,7 @@ a vyper implementation of aave flashloans
 
 ### installation
 
-requires vyper `DynArray`, so need to install latest version `0.3.2`.
-
-`pip3 install git+https://github.com/vyperlang/vyper`
-
-source: [@big_tech_sux](https://twitter.com/big_tech_sux/status/1494038496079749120)
+requires vyper `DynArray`, so need to install version >= `0.3.2`.
 
 ### resources 
 

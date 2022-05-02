@@ -1,4 +1,4 @@
-# @version ^0.3.2
+# @version ^0.3.3
 """
 @title Base Aave V3 Flash Loan Simple Receiver
 @license MIT
@@ -12,7 +12,7 @@ from vyper.interfaces import ERC20
 MAX_PARAMS_LEN: constant(uint256) = 32
 MAX_ASSETS_LEN: constant(uint256) = 32
 
-pool: address
+POOL: immutable(address)
 
 @external
 def __init__(_pool: address):
@@ -21,7 +21,7 @@ def __init__(_pool: address):
     @dev Sets value of state variable pool
     @param _pool Address of the Aave V3 pool (formerly lending pool)
     """
-    self.pool = _pool
+    POOL = _pool
 
 @external
 def executeOperation(
@@ -46,7 +46,7 @@ def executeOperation(
 
     # approve transfer back to pool
     amount_owed: uint256 = _amount + _premium
-    ERC20(_asset).approve(self.pool, amount_owed)      
+    ERC20(_asset).approve(POOL, amount_owed)      
 
     return True
 
@@ -68,7 +68,7 @@ def flash_call(
     receiver_address: address = self
     
     raw_call(
-        self.pool,
+        POOL,
         _abi_encode(
             receiver_address,
             _asset,
